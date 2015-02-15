@@ -1,4 +1,4 @@
-# Downoad and unzip raw-data ----
+# Download and unzip raw-data ----
 url.source <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(url.source, "Dataset.zip", method="curl")
 unzip(zipfile = "Dataset.zip")
@@ -6,14 +6,14 @@ rm(url.source)
 # read in meta - data
 # features - Parameter
 features <- read.table("UCI HAR Dataset/features.txt")
-# just take mean or standard deviation 
+    # just take mean or standard deviation 
 match <- grep("mean|std", features[,2])
-# aktivity labels - aktivitäten Tabelle
+# aktivity labels
 act.lab <- read.table("UCI HAR Dataset/activity_labels.txt",
                       stringsAsFactors=F)
 names(act.lab) <- c("act.id", "activity")
 
-# read in measurements
+# read in measurements ----
 files <- c("test", "train")
 measurements <- data.frame()
 for (i in files){
@@ -27,8 +27,9 @@ for (i in files){
     measurements <- rbind(measurements, tmp)
 }
 rm(tmp, files, i, match)
-# aggregate measurements by activity and the subjects
+
+# aggregate measurements by activity and the subjects ----
 averagemeasurements <- aggregate(.~subject + activity, data=measurements, FUN=mean)
 
-
-
+# epxort txt-file ----
+write.table(averagemeasurements , file="average_parameters.txt", row.names = F)
