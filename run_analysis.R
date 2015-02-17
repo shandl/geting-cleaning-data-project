@@ -7,7 +7,7 @@ rm(url.source)
 # features - Parameter
 features <- read.table("UCI HAR Dataset/features.txt")
     # just take mean or standard deviation 
-match <- grep("mean|std", features[,2])
+match <- grep("mean\\(\\)|std\\(\\)", features[,2])
 # aktivity labels
 act.lab <- read.table("UCI HAR Dataset/activity_labels.txt",
                       stringsAsFactors=F)
@@ -23,13 +23,15 @@ for (i in files){
     activity <- read.table(paste0("UCI HAR Dataset/", i, "/y_", i, ".txt"),
                            col.names = "act.id")
     activity <- factor(activity$act.id, levels=act.lab$act.id, labels=act.lab$activity)
-    tmp <- cbind(subject=i, activity, tmp)
+    subject <- read.table(paste0("UCI HAR Dataset/", i, "/subject_", i, ".txt"),
+                          col.names = "subject")
+    tmp <- cbind(subject, group=i, activity, tmp)
     measurements <- rbind(measurements, tmp)
 }
-rm(tmp, files, i, match)
+rm(tmp, files, i, match, subject)
 
 # aggregate measurements by activity and the subjects ----
-averagemeasurements <- aggregate(.~subject + activity, data=measurements, FUN=mean)
+averagemeasurements <- aggregate(.~subject + activity, data=measurements[,names(measurements)!="group"], FUN=mean)
 
 # epxort txt-file ----
 write.table(averagemeasurements , file="average_parameters.txt", row.names = F)

@@ -1,0 +1,49 @@
+---
+title: "CodeBook"
+author: "shandl"
+date: "16. Februar 2015"
+output: html_document
+---
+    parameter description for the averagemeasurements.txt
+    
+subject
+    code identifying the subject (person) who performed the activity
+    number 1 to 30
+    
+activity
+    performed activity when measurements were taken
+        WALKING
+        WALKING_UPSTAIRS
+        WALKING_DOWNSTAIRS
+        SITTING
+        STANDING
+        LAYING
+
+measurements from the mobile device
+    the measurements from the original dataset (UCI HAR Dataset) were aggregated by activity and subject
+    detailed information on the parameters and an what device they were recorded on
+    can be found in the features_info.txt as well as the README.txt in the UCI HAR Dataset
+    
+tBodyAcc-XYZ
+tGravityAcc-XYZ
+tBodyAccJerk-XYZ
+tBodyGyro-XYZ
+tBodyGyroJerk-XYZ
+tBodyAccMag
+tGravityAccMag
+tBodyAccJerkMag
+tBodyGyroMag
+tBodyGyroJerkMag
+fBodyAcc-XYZ
+fBodyAccJerk-XYZ
+fBodyGyro-XYZ
+fBodyAccMag
+fBodyAccJerkMag
+fBodyGyroMag
+fBodyGyroJerkMag
+
+The set of variables that were estimated from these signals are: 
+
+mean(): Mean value
+std(): Standard deviation
+
